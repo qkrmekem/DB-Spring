@@ -39,7 +39,7 @@ import java.util.Optional;
 @Slf4j
 public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
-    // 파라미터 바인딩을 순서가 아니라 이름 단위로 바인딩 함
+    // 이름 기반 파라미터 바인딩을 지원한다.(이 방법을 권장한다.)
     private final NamedParameterJdbcTemplate template;
 
     public JdbcTemplateItemRepositoryV2(DataSource dataSource) {
@@ -68,7 +68,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
         String sql = "update item " +
-                "set item_name=:itemName, price=:price, quantity=:quantity from item where id=:id";
+                "set item_name=:itemName, price=:price, quantity=:quantity where id=:id";
         // MapSqlParameterSource를 이용해 파라미터를 넘기는 방법
         // 메서드 체인을 통해 편리한 사용법을 제공
         SqlParameterSource param = new MapSqlParameterSource()

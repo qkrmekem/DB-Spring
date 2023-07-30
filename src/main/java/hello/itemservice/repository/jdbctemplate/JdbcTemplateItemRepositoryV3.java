@@ -23,19 +23,13 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * NamedParameterJdbcTemplate
- * SqlParameterSource
- * - BeanPropertySqlParameterSource
- * - MapSqlParameterSource
- * Map
- *
- * BeanPropertyRowMapper
- *
+ * SimpleJdbcInsert
  */
 @Slf4j
 public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
 
     private final NamedParameterJdbcTemplate template;
+    // insert sql을 편리하게 사용할 수 있다.
     private final SimpleJdbcInsert jdbcInsert;
 
     public JdbcTemplateItemRepositoryV3(DataSource dataSource) {
@@ -43,6 +37,9 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("item")
                 .usingGeneratedKeyColumns("id");
+                // 특정 값만 저장하고 싶을 때 사용, 생략 가능
+                // SimpleJdbcInsert에서 테이블에 대한 메타데이터를 조회하므로 생략할 수 있음
+//                .usingColumns("item_name", "price", "quantity"); // 생략 가능
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Slf4j
 public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
-
+    // 순서 기반 파라미터 바인딩을 지원한다.
     private final JdbcTemplate template;
 
     public JdbcTemplateItemRepositoryV1(DataSource dataSource) {
